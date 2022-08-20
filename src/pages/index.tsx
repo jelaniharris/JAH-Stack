@@ -43,7 +43,7 @@ const Home: NextPage = () => {
       <div className="text-2xl text-white text-center font-medium mb-3">
         {data.greeting}
       </div>
-      <div className="flex flex-row">
+      <div className="flex flex-row flex-wrap space-x-4">
         <PanelContainer>
           <div className="text-xl text-black mb-4">Your lucky number is:</div>
           <div className="grow w-full text-9xl text-black">
