@@ -2,8 +2,9 @@ import "tailwindcss/tailwind.css";
 import "../styles/global.scss";
 import type { AppProps } from "next/app";
 import { withTRPC } from "@trpc/next";
-import { AppRouter } from "@/pages/backend/router";
+import { AppRouter } from "@/pages/backend/router/app.router";
 import { SessionProvider } from "next-auth/react";
+import superjson from "superjson";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -43,6 +44,16 @@ export default withTRPC<AppRouter>({
        * @link https://react-query-v3.tanstack.com/reference/QueryClient
        */
       // queryClientConfig: { defaultOptions: { queries: { staleTime: 60 } } },
+      headers() {
+        if (ctx?.req) {
+          return {
+            ...ctx.req.headers,
+            "x-ssr": "1",
+          };
+        }
+        return {};
+      },
+      transformer: superjson,
       queryClientConfig: {
         defaultOptions: {
           queries: {

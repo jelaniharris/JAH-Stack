@@ -3,10 +3,10 @@ import { trpc } from "@/utils/trpc";
 import { PanelContainer } from "../common/panelContainer";
 import { inferQueryResponse } from "../../pages/api/trpc/[trpc]";
 
-type PokemonServerData = inferQueryResponse<"get-pokemon">;
+type PokemonServerData = inferQueryResponse<"pokemon.randomOne">;
 
 const LuckyPokemonContainer: NextPage = () => {
-  const { data, isLoading } = trpc.useQuery(["get-pokemon"]);
+  const { data, isLoading } = trpc.useQuery(["pokemon.randomOne"]);
 
   const ShowPokemon: React.FC<{ pokemon: PokemonServerData | undefined }> = (
     props

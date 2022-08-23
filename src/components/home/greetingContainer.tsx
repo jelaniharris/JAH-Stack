@@ -2,7 +2,7 @@ import { NextPage } from "next/types";
 import { trpc } from "@/utils/trpc";
 
 const GreetingContainer: NextPage = () => {
-  const { data, isLoading } = trpc.useQuery(["hello", { text: "Human" }]);
+  const { data, isLoading } = trpc.useQuery(["hello.greet", { text: "Human" }]);
 
   if (isLoading) {
     return <div>Loading</div>;

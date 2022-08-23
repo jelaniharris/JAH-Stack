@@ -1,15 +1,17 @@
-import { AppRouter, appRouter } from "@/pages/backend/router";
+import { AppRouter, appRouter } from "@/pages/backend/router/app.router";
 import { inferProcedureOutput } from "@trpc/server";
+import { createContext } from "@/pages/backend/context";
 import * as trpcNext from "@trpc/server/adapters/next";
 
 // export API handler
 export default trpcNext.createNextApiHandler({
   router: appRouter,
-  createContext: () => null,
-  onError({ error, type, path, input, ctx, req }) {
-    console.error("Error:", error);
+  createContext,
+  onError({ error }) {
     if (error.code === "INTERNAL_SERVER_ERROR") {
-      // send to special bug reporting process
+      console.error("Something went wrong", error);
+    } else {
+      console.log(error);
     }
   },
 });

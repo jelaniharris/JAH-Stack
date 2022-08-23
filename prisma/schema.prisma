@@ -47,6 +47,7 @@ model User {
   updatedAt     DateTime  @default(now())
   accounts      Account[]
   sessions      Session[]
+  notes         Note[]
 }
 
 model VerificationToken {
@@ -55,4 +56,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Note {
+  id        String   @id @default(cuid())
+  title     String
+  content   String
+  userId    String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
 }

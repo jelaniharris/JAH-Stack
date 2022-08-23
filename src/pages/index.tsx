@@ -3,6 +3,7 @@ import { NavBar } from "@/components/navigation/navBar";
 import LuckyNumberContainer from "@/components/home/luckyNumberContainer";
 import LuckyPokemonContainer from "@/components/home/luckyPokemonContainer";
 import GreetingContainer from "@/components/home/greetingContainer";
+import NotesContainer from "@/components/home/notesContainer";
 
 const Home: NextPage = () => {
   return (
@@ -13,6 +14,7 @@ const Home: NextPage = () => {
         <div className="flex flex-row flex-wrap space-x-4">
           <LuckyNumberContainer />
           <LuckyPokemonContainer />
+          <NotesContainer />
         </div>
       </div>
     </>
