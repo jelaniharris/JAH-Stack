@@ -1,4 +1,5 @@
 import * as trpc from "@trpc/server";
+import { TRPCError } from "@trpc/server";
 const axios = require("axios");
 import { z } from "zod";
 
@@ -40,7 +41,10 @@ export const appRouter = trpc
         return { name: response.data.name, sprites: response.data.sprites };
       }
 
-      throw new Error(`Could not get pokemon with id ${currentPokemonId}`);
+      throw new TRPCError({
+        code: "NOT_FOUND",
+        message: `Could not get pokemon with id ${currentPokemonId}`,
+      });
     },
   });
 

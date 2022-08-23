@@ -6,6 +6,12 @@ import * as trpcNext from "@trpc/server/adapters/next";
 export default trpcNext.createNextApiHandler({
   router: appRouter,
   createContext: () => null,
+  onError({ error, type, path, input, ctx, req }) {
+    console.error("Error:", error);
+    if (error.code === "INTERNAL_SERVER_ERROR") {
+      // send to special bug reporting process
+    }
+  },
 });
 
 // Helper for infering type from query
