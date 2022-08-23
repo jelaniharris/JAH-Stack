@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply text-white bg-gray-800;
+}
+
+
+/**
+* Buttons
+**/
+
+.btn {
+  @apply font-bold py-2 px-4 rounded;
+  &:hover {
+    @apply bg-blue-500;
+  }
+}
+
+.btn-primary {
+  @apply bg-blue-700 text-white;
+}
+
+.btn-secondary {
+  @apply bg-gray-700 text-white;
+}

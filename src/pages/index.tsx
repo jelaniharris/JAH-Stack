@@ -4,6 +4,7 @@ import { trpc } from "@/utils/trpc";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import { inferQueryResponse } from "./api/trpc/[trpc]";
+import { NavBar } from "@/components/navigation/navBar";
 
 type PokemonServerData = inferQueryResponse<"get-pokemon">;
 
@@ -39,29 +40,34 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen justify-center items-center">
-      <div className="text-2xl text-white text-center font-medium mb-3">
-        {data.greeting}
-      </div>
-      <div className="flex flex-row flex-wrap space-x-4">
-        <PanelContainer>
-          <div className="text-xl text-black mb-4">Your lucky number is:</div>
-          <div className="grow w-full text-9xl text-black">
-            <div className="flex h-full items-center justify-center">
-              {luckyNumber}
+    <>
+      <NavBar />
+      <div className="flex flex-col h-screen justify-center items-center">
+        <div className="text-2xl text-white text-center font-medium mb-3">
+          {data.greeting}
+        </div>
+        <div className="flex flex-row flex-wrap space-x-4">
+          <PanelContainer>
+            <div className="text-xl text-black mb-4">Your lucky number is:</div>
+            <div className="grow w-full text-9xl text-black">
+              <div className="flex h-full items-center justify-center">
+                {luckyNumber}
+              </div>
             </div>
-          </div>
-        </PanelContainer>
-        <PanelContainer>
-          <div className="text-xl text-black mb-4">Your lucky pokemon is:</div>
-          <div className="text-3xl text-black font-bold text-center">
-            {!pokemonData.isLoading && pokemonData.data && (
-              <ShowPokemon pokemon={pokemonData.data} />
-            )}
-          </div>
-        </PanelContainer>
+          </PanelContainer>
+          <PanelContainer>
+            <div className="text-xl text-black mb-4">
+              Your lucky pokemon is:
+            </div>
+            <div className="text-3xl text-black font-bold text-center">
+              {!pokemonData.isLoading && pokemonData.data && (
+                <ShowPokemon pokemon={pokemonData.data} />
+              )}
+            </div>
+          </PanelContainer>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
