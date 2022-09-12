@@ -1,8 +1,18 @@
 import { NextPage } from "next/types";
 import { trpc } from "@/utils/trpc";
+import { useSession } from "next-auth/react";
 
 const GreetingContainer: NextPage = () => {
-  const { data, isLoading } = trpc.useQuery(["hello.greet", { text: "Human" }]);
+  const { data: session } = useSession();
+  const { data, isLoading } = trpc.useQuery([
+    "hello.greet",
+    {
+      text:
+        session && session.user && session.user.name
+          ? session.user.name
+          : "Human",
+    },
+  ]);
 
   if (isLoading) {
     return <div>Loading</div>;

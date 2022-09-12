@@ -1,10 +1,14 @@
 import { Popover, Menu, Transition } from "@headlessui/react";
 import { useSession, signOut } from "next-auth/react";
 import { useState, Fragment } from "react";
+import React from "react";
 import { usePopper } from "react-popper";
+import { NavButton } from "./navButton";
+import { useRouter } from "next/router";
 
 export const NavBar = () => {
   const { data: session, status } = useSession();
+  const router = useRouter();
 
   const NavUserOptionsComponent = () => {
     const [referenceElement, setReferenceElement] =
@@ -157,7 +161,20 @@ export const NavBar = () => {
   return (
     <nav className="flex items-center justify-between flex-wrap bg-slate-700 p-6">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <span className="font-semibold text-xl tracking-tight">JAH Stack</span>
+        <span className="font-semibold text-xl tracking-tight">
+          JAH Boilerplate
+        </span>
+      </div>
+      <div className="ml-10 flex items-baseline space-x-4">
+        <NavButton href="/" active={router.pathname == "/"}>
+          Home
+        </NavButton>
+        <NavButton href="/notes" active={router.pathname == "/notes"}>
+          Notes
+        </NavButton>
+        <NavButton href="/users" active={router.pathname == "/users"}>
+          Users
+        </NavButton>
       </div>
       <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-white border-white hover:text-teal-200 hover:border-teal-200">
