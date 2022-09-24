@@ -15,6 +15,7 @@ import FormInput from "@/components/common/formInput";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Layout from "@/components/layout/layout";
+import { LoadingButton } from "@/components/common/loadingButton";
 
 const Notes: NextPage = ({}: InferGetServerSidePropsType<
   typeof getServerSideProps
@@ -60,9 +61,9 @@ const Notes: NextPage = ({}: InferGetServerSidePropsType<
   };
 
   const actionPanel = (
-    <button type="submit" className="btn btn-primary">
+    <LoadingButton btnColor="primary" loading={isLoading}>
       Add Note
-    </button>
+    </LoadingButton>
   );
   const formContainer = session && (
     <>
@@ -117,7 +118,7 @@ const Notes: NextPage = ({}: InferGetServerSidePropsType<
               {allNotes &&
                 allNotes.map((note) => {
                   return (
-                    <span>
+                    <span key={note.id}>
                       {note.title} - {note.content}
                     </span>
                   );
