@@ -34,10 +34,14 @@ export default NextAuth({
     async redirect({ url, baseUrl }) {
       return baseUrl
     },
-    async session({ session, user, token }) {
-      return session
+    */
+    async session({ session, user, token }: any) {
+      if (session.user) {
+        session.user.id = user.id;
+      }
+      return session;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    /*async jwt({ token, user, account, profile, isNewUser }) {
       return token
     }*/
   },
