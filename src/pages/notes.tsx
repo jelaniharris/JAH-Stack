@@ -16,11 +16,13 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import Layout from "@/components/layout/layout";
 import { LoadingButton } from "@/components/common/loadingButton";
+import NotesList from "@/components/notes/notesList";
 
 const Notes: NextPage = ({}: InferGetServerSidePropsType<
   typeof getServerSideProps
 >) => {
   const { data: session } = useSession();
+  const utils = trpc.useContext();
   const methods = useForm<CreateNoteInput>({
     resolver: zodResolver(createNoteSchema),
   });
@@ -31,7 +33,6 @@ const Notes: NextPage = ({}: InferGetServerSidePropsType<
     formState: { errors, isSubmitSuccessful },
   } = methods;
 
-  const { data: allNotes, refetch } = trpc.useQuery(["notes.findAll"]);
   const {
     isLoading,
     mutate: CreateNote,
@@ -45,7 +46,7 @@ const Notes: NextPage = ({}: InferGetServerSidePropsType<
     },
     onSuccess: (data) => {
       toast.success("Note created successfully");
-      refetch();
+      utils.invalidateQueries(["notes.findAll"]);
     },
   });
 
@@ -113,17 +114,7 @@ const Notes: NextPage = ({}: InferGetServerSidePropsType<
                 </form>
               </FormProvider>
             </div>
-            <>
-              <h2>All Notes</h2>
-              {allNotes &&
-                allNotes.map((note) => {
-                  return (
-                    <span key={note.id}>
-                      {note.title} - {note.content}
-                    </span>
-                  );
-                })}
-            </>
+            <NotesList />
           </PageContainer>
         </div>
       </Layout>

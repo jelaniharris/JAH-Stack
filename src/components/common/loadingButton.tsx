@@ -6,17 +6,22 @@ type LoadingButtonProps = {
   btnColor?: string;
   textColor?: string;
   children: React.ReactNode;
+  onClick?: () => void;
+  type?: "submit" | "reset" | "button";
 };
 
 export const LoadingButton: React.FC<LoadingButtonProps> = ({
   btnColor = "primary",
   children,
   loading = false,
+  type,
+  ...rest
 }) => {
   return (
     <button
-      type="submit"
+      type={type}
       className={`btn btn-${btnColor} ${loading ? "btn-loading" : ""}`}
+      {...rest}
     >
       {loading ? (
         <div className="flex items-center gap-3">

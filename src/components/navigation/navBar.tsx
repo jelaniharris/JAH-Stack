@@ -172,9 +172,6 @@ export const NavBar = () => {
         <NavButton href="/notes" active={router.pathname == "/notes"}>
           Notes
         </NavButton>
-        <NavButton href="/users" active={router.pathname == "/users"}>
-          Users
-        </NavButton>
       </div>
       <div className="block lg:hidden">
         <button className="flex items-center px-3 py-2 border rounded text-white border-white hover:text-teal-200 hover:border-teal-200">
